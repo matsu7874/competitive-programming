@@ -1,5 +1,2 @@
-Opened by abcd
-Unknown abcc
-Closed by efgh
-Opened by abcd
-Closed by mnop
+4
+3
