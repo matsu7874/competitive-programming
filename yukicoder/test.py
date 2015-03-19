@@ -1,0 +1,1 @@
+print(''.join([chr(ord(('Aa')[i%8>0])+i%26) for i in range(208)]))
