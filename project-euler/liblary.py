@@ -44,7 +44,19 @@ def prime_decomposition(n, sorted_prime_list=[]):
     if n > 1:
         prime_factors.append(n)
     return prime_factors
-    
+
+def get_degree(lst):
+    degree = {}
+    for i in lst:
+        degree.update({i:lst.count(i)})
+    return degree
+
+def count_factor(prime_degree):
+    res = 1
+    for p,v in prime_degree.items():
+        res *= v+1
+    return res
+
 def is_palindromic(n, base=10):
     a = []
     i = 0
