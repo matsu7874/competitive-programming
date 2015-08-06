@@ -14,5 +14,9 @@ natural numbers and the square of the sum is 3025 - 385 = 2640.
 Find the difference between the sum of the squares of the first one
 hundred natural numbers and the square of the sum.
 """
+def main():
+    target = 100+1
+    print(sum([i for i in range(target)])**2 - sum([i**2 for i in range(target)]))
 
-
+if __name__ == '__main__':
+    main()

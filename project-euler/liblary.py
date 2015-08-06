@@ -1,10 +1,33 @@
 def sum_arithmetic_sequence(a, d, n):
     return n*a + (n-1)*n*d//2
 
+def sum_geometric_sequence(a, r, n):
+    if r == 0:
+        return a
+    return a * (1-r**n) / (1-r)
+
+def factrial(n):
+    res = 1
+    while n > 1:
+        res *= n
+        n -= 1
+    return res
+
+def combination(n, r):
+    res = 1
+    t = r-1
+    while t >= 0:
+        res = res*(n-t)//(r-t)
+        t -= 1
+    return res
+
 def gcd(a, b):
     while b > 0:
         a,b = b, a%b
     return a
+
+def lcm(a, b):
+    return a*b // gcd(a,b)
 
 def prime_sieve(n):
     is_prime = [True for i in range(n+1)]
@@ -70,7 +93,26 @@ def is_palindromic(n, base=10):
         return False
 
 
+DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+NAME_OF_MONTH['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
+def day_of_week(y, m, d):
+    # Zeller's congruence
+    # DAY_OF_WEEK = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+    if m == 1 or m == 2:
+        m += 12
+        y -= 1
+    h = (y + y//4 - y//100 + y//400 + (13*m+8)//5 + d) % 7
+    return h
+
+def is_leap_year(y):
+    if y%4 == 0:
+        if y%100 == 0:
+            if y%400 == 0:
+                return True
+            return False
+        return True
+    return False
 
 
 
