@@ -17,4 +17,20 @@ Find the sum of all the numbers that can be written as the sum of fifth
 powers of their digits.
 """
 
+def each_digits(n, base=10):
+    digits = []
+    a = 1
+    while n >= a:
+        digits.append(n//a % base)
+        a *= base
+    return digits[::-1]
 
+
+def main():
+    res = 0
+    for i in range(2, 355000):
+        if i == sum([x**5 for x in each_digits(i)]):
+            res += i
+    print(res)
+if __name__ == '__main__':
+    main()

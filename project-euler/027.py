@@ -27,4 +27,29 @@ expression that produces the maximum number of primes for consecutive
 values of n, starting with n = 0.
 """
 
+def is_prime(n):
+    if n == 2:
+        return True
+    elif n<2 or n%2==0:
+        return False
+    for i in range(3, int(n**0.5)+1, 2):
+        if n%i == 0:
+            return False
+    return True
 
+def main():
+    max_a = 0
+    max_b = 0
+    max_n = 0
+    for a in range(-999, 1000):
+        for b in range(-999, 1000, 2):
+            n = 0
+            while is_prime(n*n + a*n + b):
+                n += 1
+            if n-1 > max_n:
+                max_n = n-1
+                max_a = a
+                max_b = b
+    print(max_n*max_n + max_a*max_n + max_b)
+if __name__ == '__main__':
+    main()

@@ -29,6 +29,16 @@ def gcd(a, b):
 def lcm(a, b):
     return a*b // gcd(a,b)
 
+def is_prime(n):
+    if n == 2:
+        return True
+    elif n<2 or n%2==0:
+        return False
+    for i in range(3, int(n**0.5)+1, 2):
+        if n%i == 0:
+            return False
+    return True
+
 def prime_sieve(n):
     is_prime = [True for i in range(n+1)]
     is_prime[0] = False
@@ -79,6 +89,14 @@ def count_factor(prime_degree):
     for p,v in prime_degree.items():
         res *= v+1
     return res
+
+def each_digits(n, base=10):
+    digits = []
+    a = 1
+    while n >= a:
+        digits.append(n//a % base)
+        a *= base
+    return digits[::-1]
 
 def is_palindromic(n, base=10):
     a = []

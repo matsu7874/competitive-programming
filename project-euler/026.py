@@ -23,3 +23,32 @@ cycle in its decimal fraction part.
 """
 
 
+def main():
+    max_d = 0
+    max_l = 0
+    for d in range(2,1000):
+        N = [1]
+        A = []
+        i = 0
+        have_cycle = False
+        cycle_length = 0
+        while N[i]>0 and not have_cycle:
+            for j in range(i):
+                if N[i] == N[j]:
+                    have_cycle = True
+                    cycle_length = i-j
+                    break
+            if not have_cycle:
+                A.append(N[i]//d)
+                N.append(N[i]%d*10)
+                i += 1
+        if max_l < cycle_length:
+            max_d = d
+            max_l = cycle_length
+    print(max_d)
+
+
+
+
+if __name__ == '__main__':
+    main()

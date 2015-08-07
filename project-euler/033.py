@@ -15,5 +15,29 @@ denominator.
 If the product of these four fractions is given in its lowest common
 terms, find the value of the denominator.
 """
+def gcd(a, b):
+    while b > 0:
+        a,b = b, a%b
+    return a
+
+def main():
+    res = 0
+    num = 1
+    den = 1
+    for a in range(1,10):
+        for b in range(1,10):
+            for c in range(a,10):
+                for d in range(1,10):
+                    if a*10+b >= c*10+d:
+                        continue
+                    if a==d and (a*10+b)*c==b*(c*10+d):
+                        num *= b
+                        den *= c
+                    if b==c and (a*10+b)*d==a*(c*10+d):
+                        num *= a
+                        den *= d
+    print(den//gcd(num,den))
 
 
+if __name__ == '__main__':
+    main()

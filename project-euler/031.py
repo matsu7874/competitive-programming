@@ -15,3 +15,19 @@ How many different ways can -L-2 be made using any number of coins?
 """
 
 
+def main():
+    coins = [1, 2, 5, 10, 20, 50, 100, 200]
+    dp = [[0 for j in range(201)] for i in range(len(coins))]
+    for i in range(201):
+        dp[0][i] = 1
+    for i in range(1,len(coins)):
+        for j in range(201):
+            if j < coins[i]:
+                dp[i][j] = dp[i-1][j]
+            else:
+                dp[i][j] = dp[i-1][j] + dp[i-1][j-coins[i]]
+    print(dp[len(coins)-1][200])
+
+if __name__ == '__main__':
+    main()
+    test()
