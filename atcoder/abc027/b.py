@@ -1,10 +1,10 @@
 N = int(input())
 A = [int(x) for x in input().split()]
-m = sum(A)
-if m%N != 0:
+sum_A = sum(A)
+if sum_A%N != 0:
     print(-1)
 else:
-    target = m//N
+    target = sum_A // N
     cnt = 0
     p = 0
     n = 0

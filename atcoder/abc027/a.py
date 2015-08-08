@@ -1,7 +1,7 @@
 a,b,c = [int(x) for x in input().split()]
-if a!=b and a!=c:
+if b==c:
     print(a)
-elif a==b:
-    print(c)
-else:
+elif c==a:
     print(b)
+else:
+    print(c)
