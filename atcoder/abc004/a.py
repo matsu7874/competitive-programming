@@ -1,2 +1,2 @@
 N = int(input())
-print(2*N)
+print(2 * N)
