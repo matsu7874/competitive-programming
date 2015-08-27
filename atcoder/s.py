@@ -28,7 +28,7 @@ def main():
             f = open(path, 'w')
             f.close()
             print(path, 'created')
-    for s in ['in.txt', 'ans.txt']:
+    for s in ['in.txt', 'out.txt']:
         path = contest_name + '\\' + s
         if os.path.isfile(path):
             print(path, 'is exists')
