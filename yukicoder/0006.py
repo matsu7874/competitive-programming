@@ -1,19 +1,20 @@
 def prime_sieve(n):
-    is_prime = [True for i in range(n+1)]
+    is_prime = [True for i in range(n + 1)]
     is_prime[0] = False
     is_prime[1] = False
-    for i in range(4, n+1, 2):
+    for i in range(4, n + 1, 2):
         is_prime[i] = False
-    for i in range(3, int(n**0.5+1), 2):
+    for i in range(3, int(n**0.5 + 1), 2):
         if is_prime[i]:
-            for j in range(i*i, n+1, i):
+            for j in range(i * i, n + 1, i):
                 is_prime[j] = False
-    return [i for i in range(n+1) if is_prime[i]]
+    return [i for i in range(n + 1) if is_prime[i]]
+
 
 def frank(n):
     res = 0
-    while n>0:
-        res += n%10
+    while n > 0:
+        res += n % 10
         n //= 10
     if res > 9:
         return frank(res)
@@ -23,7 +24,7 @@ K = int(input())
 N = int(input())
 P = prime_sieve(N)
 i = 0
-while P[i]<K:
+while P[i] < K:
     i += 1
 P = P[i:]
 
