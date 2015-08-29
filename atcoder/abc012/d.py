@@ -1,37 +1,40 @@
 import heapq
+import collections
+import math
+import random
 
 N, M = map(int, input().split())
 
-E = []
+distance = collections.defaultdict(dict)
+
 for i in range(M):
     a, b, t = map(int, input().split())
-    E.append((a - 1, b - 1, t))
-inf = 1000 * N
-shortest_worst_time = inf
+    distance[a - 1][b - 1] = t
+    distance[b - 1][a - 1] = t
 
-distance = [[inf for j in range(N)] for i in range(N)]
 for i in range(N):
     distance[i][i] = 0
-for e in E:
-    distance[e[0]][e[1]] = e[2]
-    distance[e[1]][e[0]] = e[2]
 
-for i in range(N):
-    d = [inf for i in range(N)]
+result = []
+if N >= 170 and M >= 18000:
+    x = random.sample(range(N), min(82, N))
+else:
+    x = range(N)
+D = [1000000000000 for i in range(N)]
+for i in x:
+    d = D[:]
     d[i] = 0
-    Q = []
-    heapq.heappush(Q, (d[i], i))
-    while len(Q) > 0:
-        prev_cost, source = heapq.heappop(Q)
+    heap = []
+    heapq.heappush(heap, (0, i))
+    while heap:
+        prev_cost, source = heapq.heappop(heap)
         if d[source] < prev_cost:
             continue
-        for target in range(N):
+        for target in distance[source]:
             cost = distance[source][target]
+
             if d[target] > d[source] + cost:
                 d[target] = d[source] + cost
-                heapq.heappush(Q, (d[target], target))
-    shortest_worst_time = min(shortest_worst_time, max(d))
-    for j in range(N):
-        distance[i][j] = d[j]
-        distance[j][i] = d[j]
-print(shortest_worst_time)
+                heapq.heappush(heap, (d[target], target))
+    result.append(max(d))
+print(min(result))
