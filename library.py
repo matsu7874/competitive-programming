@@ -1,6 +1,6 @@
 DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-NAME_OF_MONTH['January', 'February', 'March', 'April', 'May', 'June',
-              'July', 'August', 'September', 'October', 'November', 'December']
+NAME_OF_MONTH = ['January', 'February', 'March', 'April', 'May', 'June',
+                 'July', 'August', 'September', 'October', 'November', 'December']
 DAY_OF_WEEK = ['Sunday', 'Monday', 'Tuesday',
                'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
@@ -161,3 +161,103 @@ def is_leap_year(y):
             return False
         return True
     return False
+
+
+def days_since_epoch(year, month, day):
+    # 1年1月1日からの経過日数を求める
+    # days_since_epoch(1,1,1)=0
+    DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    cnt = day - 1
+    for i in range(month - 1):
+        cnt += DAYS_IN_MONTH[i]
+    cnt += 365 * (year - 1)
+    if month <= 2:
+        y = year - 1
+    else:
+        y = year
+    cnt += y // 4
+    cnt -= y // 100
+    cnt += y // 400
+    return cnt
+
+
+def lower_bound(lst, n):
+    # ソートされたlst内でlst[index]がn以上かつ最小のindexを返す
+    # nを挿入する際にソートが維持される最小のindexを返す
+    l = 0
+    r = len(lst)
+    while l < r:
+        m = (l + r) // 2
+        if lst[m] >= n:
+            r = m
+        elif lst[m] < n:
+            l = m + 1
+    return l
+
+
+def upper_bound(lst, n):
+    # ソートされたlst内でlst[index]がn以下かつ最大のindexを返す
+    # nを挿入する際にソートが維持される最大のindexを返す
+    l = 0
+    r = len(lst)
+    while l < r:
+        m = (l + r) // 2
+        if lst[m] > n:
+            r = m-1
+        elif lst[m] <= n:
+            l = m+1
+    return l
+
+
+class UnionFind:
+
+    def __init__(self, size):
+        # 負の値はルート (集合の代表) で集合の個数
+        # 正の値は次の要素を表す
+        self.table = [-1 for _ in range(size)]
+
+    def find(self, x):
+        # 集合の代表を求める
+        while self.table[x] >= 0:
+            x = self.table[x]
+        return x
+
+    def union(self, x, y):
+        # 併合
+        s1 = self.find(x)
+        s2 = self.find(y)
+        if s1 != s2:
+            if self.table[s1] >= self.table[s2]:
+                self.table[s1] += self.table[s2]
+                self.table[s2] = s1
+            else:
+                self.table[s2] += self.table[s1]
+                self.table[s1] = s2
+        return self.table[s1]
+
+
+# 幾何
+
+EPS = 10**-8
+INF = 10**12
+
+
+def ccw(ax, ay, bx, by, cx, cy):
+    bx -= ax
+    cx -= ax
+    by -= ay
+    cy -= ay
+
+
+def distance(px, py, qx, qy):
+    return ((px - qx) * (px - qx) + (py - qy) * (py - qy))**0.5
+
+
+def distance2(px, py, qx, qy):
+    return (px - qx) * (px - qx) + (py - qy) * (py - qy)
+
+if __name__ == '__main__':
+    lst = [1, 2, 2, 4, 5, 5, 5, 7, 7, 8, 1000]
+    print(lst)
+    n = int(input())
+    print(lower_bound(lst, n), upper_bound(lst, n))
