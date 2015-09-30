@@ -19,6 +19,7 @@ for _ in range(N):
     (s, e) = map(int, input().split('-'))
     for i in range(nth_cell(round_before(s)), nth_cell(round_after(e))):
         rain[i] = 1
+
 buff = ""
 for i in range(len(rain)):
     if (i == 0 or rain[i - 1] == 0) and rain[i] == 1:
