@@ -5,6 +5,15 @@ DAY_OF_WEEK = ['Sunday', 'Monday', 'Tuesday',
                'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 
+def is_palindrome(s):
+    # 回文判定
+    length = len(s)
+    for i in range((length + 1) // 2):
+        if s[i] != s[length - 1 - i]:
+            return False
+    return True
+
+
 def sum_arithmetic_sequence(a, d, n):
     # 等差数列の和の公式
     return n * a + (n - 1) * n * d // 2
@@ -203,9 +212,9 @@ def upper_bound(lst, n):
     while l < r:
         m = (l + r) // 2
         if lst[m] > n:
-            r = m-1
+            r = m - 1
         elif lst[m] <= n:
-            l = m+1
+            l = m + 1
     return l
 
 
