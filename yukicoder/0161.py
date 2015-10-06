@@ -1,0 +1,12 @@
+G, C, P = map(int, input().split())
+S = input()
+g = S.count('G')
+c = S.count('C')
+p = S.count('P')
+point = 0
+point += 3 * (min(G, c) + min(C, p) + min(P, g))
+G, c = G - min(G, c), c - min(G, c)
+C, p = C - min(C, p), p - min(C, p)
+P, g = P - min(P, g), g - min(P, g)
+point += 1 * (min(G, g) + min(C, c) + min(P, p))
+print(point)
