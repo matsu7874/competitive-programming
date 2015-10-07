@@ -112,6 +112,17 @@ def prime_decomposition(n, sorted_prime_list=[]):
     return prime_factors
 
 
+def get_divisors(n):
+    # 約数列挙
+    divisors = set()
+    for i in range(1, int(n**0.5) + 1):
+        if n % i == 0:
+            divisors.add(i)
+            divisors.add(n // i)
+    list(divisors)
+    return divisors
+
+
 def get_degree(lst):
     degree = {}
     for i in lst:
@@ -264,6 +275,10 @@ def distance(px, py, qx, qy):
 
 def distance2(px, py, qx, qy):
     return (px - qx) * (px - qx) + (py - qy) * (py - qy)
+
+
+def signed_area(ax, ay, bx, by, cx, cy):
+    return ((bx - ax) * (cy - ay) - (by - ay) * (cx - ax)) * 0.5
 
 if __name__ == '__main__':
     lst = [1, 2, 2, 4, 5, 5, 5, 7, 7, 8, 1000]
