@@ -123,16 +123,16 @@ def get_divisors(n):
     return divisors
 
 
-def get_degree(lst):
-    degree = {}
+def get_frequency(lst):
+    frequency = {}
     for i in lst:
-        degree.update({i: lst.count(i)})
-    return degree
+        frequency.update({i: lst.count(i)})
+    return frequency
 
 
-def count_factor(prime_degree):
+def count_factor(prime_frequency):
     res = 1
-    for p, v in prime_degree.items():
+    for p, v in prime_frequency.items():
         res *= v + 1
     return res
 
