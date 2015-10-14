@@ -1,10 +1,14 @@
 N = int(input())
-cur = 0
-cnt = 0
-while 10**cur < N:
-    cnt += (N + 1) // (10**(cur + 1)) * (10**cur)
-    cnt += max(min((N + 1) % (10**(cur + 1)) - (10**cur), 10**cur), 0)
-    cur += 1
-if 10**cur == N:
-    cnt += 1
-print(cnt)
+total = 0
+for i in range(9):
+    i_th_digit = N % (10**(i + 1)) // (10**i)
+    total += N // (10**(i + 1)) * (10**i)
+    if i_th_digit == 0:
+        pass
+    elif i_th_digit == 1:
+        total += N % (10**(i + 1)) % (10**i) + 1
+    else:
+        total += 10**i
+    print(i, i_th_digit, total)
+
+print(total)
