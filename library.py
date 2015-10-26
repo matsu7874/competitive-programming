@@ -119,8 +119,7 @@ def get_divisors(n):
         if n % i == 0:
             divisors.add(i)
             divisors.add(n // i)
-    list(divisors)
-    return divisors
+    return list(divisors)
 
 
 def get_frequency(lst):
