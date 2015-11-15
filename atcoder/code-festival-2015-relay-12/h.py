@@ -16,7 +16,7 @@ class Graph:
         self.add_edge(target, source, cost)
 
     def min_dist_dijkstra(self, s):
-        dist = [float('inf') for i in range(self.size)]
+        dist = [float('inf')]*self.size
         dist[s] = 0
         q = [(0, s)]
         while q:
@@ -31,7 +31,6 @@ class Graph:
         return dist
 
     def min_dist_queue(self,s):
-        # dist = [float('inf') for i in range(self.size)]
         dist = [float('inf')]*self.size
         dist[s] = 0
         q = collections.deque()

@@ -9,6 +9,5 @@ for i in range(9):
         total += N % (10**(i + 1)) % (10**i) + 1
     else:
         total += 10**i
-    print(i, i_th_digit, total)
 
 print(total)

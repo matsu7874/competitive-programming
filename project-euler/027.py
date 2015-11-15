@@ -50,6 +50,6 @@ def main():
                 max_n = n-1
                 max_a = a
                 max_b = b
-    print(max_n*max_n + max_a*max_n + max_b)
+    print(max_a * max_b)
 if __name__ == '__main__':
     main()

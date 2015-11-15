@@ -20,7 +20,7 @@ def main():
     cnt = 1
     for i in itertools.permutations(['0','1','2','3','4','5','6','7','8','9']):
         if cnt == 1000000:
-            print('.join(i)')
+            print(''.join(i))
             return
         cnt += 1
 

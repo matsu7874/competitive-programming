@@ -29,9 +29,11 @@ What is the first term in the Fibonacci sequence to contain 1000 digits?
 def main():
     a = 1
     b = 1
+    i = 2
     while a<10**(1000-1):
         a,b = a+b,a
-    print(a)
+        i += 1
+    print(i)
 
 if __name__ == '__main__':
     main()

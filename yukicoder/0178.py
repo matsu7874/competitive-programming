@@ -4,7 +4,7 @@ for i in range(N):
     a, b = map(int, input().split())
     L.append(a + 4 * b)
 max_l = 0
-space = L[0]%2
+space = L[0] % 2
 for i in range(N):
     if L[i] > max_l:
         max_l = L[i]

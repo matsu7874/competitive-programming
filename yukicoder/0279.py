@@ -1,0 +1,5 @@
+S=input()
+t=S.count('t')
+r=S.count('r')
+e=S.count('e')
+print(min(t,r,e//2))

@@ -18,3 +18,16 @@ same way?
 """
 
 
+def main():
+    res = 1
+    i = 1
+    d = 2
+    while i < 1001*1001:
+        for j in range(4):
+            i += d
+            res += i
+        d += 2
+    print(res)
+
+if __name__ == '__main__':
+    main()

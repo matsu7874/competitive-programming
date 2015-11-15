@@ -10,8 +10,8 @@ def main():
             while y >= 0:
                 x = e - z**3 - y**2
                 m = min(m, x+y+z)
-            y -= 1
-        z -= 1
+                y -= 1
+            z -= 1
         print(m)
 
 if __name__ == '__main__':
