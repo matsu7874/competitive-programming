@@ -1,15 +1,12 @@
+def combination(n, r):
+    res = 1
+    t = r - 1
+    while t >= 0:
+        res = res * (n - t) // (r - t)
+        t -= 1
+    return res
+
 n = int(input())
 k = int(input())
-ans = 0
 
-F = [0 for x in range(200002)]
-def functional(n):
-    if F[n] != 0:
-        return F[n]
-    elif n>1:
-        F[n] = n*functional(n-1)
-        return F[n]
-    else:
-        return 1
-
-print((functional(n+k-1)//(functional(k)*functional(n-1)))%1000000007) 
+print(combination(n+k-1,k) % 1000000007)
