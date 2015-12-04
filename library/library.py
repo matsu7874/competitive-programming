@@ -46,70 +46,15 @@ def combination(n, r):
 
 
 def gcd(a, b):
-    # 最小公倍数
+    # 最大公約数
     while b > 0:
         a, b = b, a % b
     return a
 
 
 def lcm(a, b):
-    # 最大公約数
+    # 最小公倍数
     return a * b // gcd(a, b)
-
-
-def is_prime(n):
-    # 素数判定
-    if n == 2:
-        return True
-    elif n < 2 or n % 2 == 0:
-        return False
-    for i in range(3, int(n**0.5) + 1, 2):
-        if n % i == 0:
-            return False
-    return True
-
-
-def prime_sieve(n):
-    # 素数リスト(エラトステネスの篩)
-    is_prime = [True for i in range(n + 1)]
-    is_prime[0] = False
-    is_prime[1] = False
-    for i in range(4, n + 1, 2):
-        is_prime[i] = False
-    for i in range(3, int(n**0.5 + 1), 2):
-        if is_prime[i]:
-            for j in range(i * i, n + 1, i):
-                is_prime[j] = False
-    return [i for i in range(n + 1) if is_prime[i]]
-
-
-def prime_decomposition(n, sorted_prime_list=[]):
-    # 素因数分解
-    prime_factors = []
-    if n < 2:
-        return prime_factors
-    if sorted_prime_list == []:
-        while n >= 2 and n % 2 == 0:
-            prime_factors.append(2)
-            n //= 2
-        i = 3
-        while i * i <= n:
-            if n % i == 0:
-                prime_factors.append(i)
-                n //= i
-            else:
-                i += 2
-    else:
-        i = 0
-        while sorted_prime_list[i]**2 <= n:
-            if n % sorted_prime_list[i] == 0:
-                prime_factors.append(sorted_prime_list[i])
-                n //= sorted_prime_list[i]
-            else:
-                i += 1
-    if n > 1:
-        prime_factors.append(n)
-    return prime_factors
 
 
 def get_divisors(n):
@@ -226,6 +171,31 @@ def upper_bound(lst, n):
         elif lst[m] <= n:
             l = m + 1
     return l
+
+
+def maxBy(f, x, y):
+    if f(x) > f(y):
+        return x
+    else:
+        return y
+
+
+def lcs(a, b, dic):
+    if (a, b) in dic:
+        return dic[(a, b)]
+    if a == '' or b == '':
+        ret = ''
+    elif a[-1] == b[-1]:
+        ret = lcs(a[:-1], b[:-1], dic) + a[-1]
+    else:
+        lcs_a = lcs(a[:-1], b, dic)
+        lcs_b = lcs(a, b[:-1], dic)
+        if len(lcs_a) > len(lcs_b):
+            ret = lcs_a
+        else:
+            ret = lcs_b
+    dic[(a, b)] = ret
+    return ret
 
 
 class UnionFind:
