@@ -1,10 +1,10 @@
 N = int(input())
 C = int(input())
 V = int(input())
-S = [int(x) for x in input().split()]
-T = [int(x) for x in input().split()]
-Y = [int(x) for x in input().split()]
-M = [int(x) for x in input().split()]
+S = list(map(int, input().split()))
+T = list(map(int, input().split()))
+Y = list(map(int, input().split()))
+M = list(map(int, input().split()))
 
 Vec = [(S[i], T[i], Y[i], M[i]) for i in range(V)]
 Vec.sort()
