@@ -1,48 +1,29 @@
+def mod_pow(x, n, mod):
+    res = 1
+    while n > 0:
+        if n & 1:
+            res = res * x % mod
+        x = x * x % mod
+        n //= 2
+    return res
+
 N = int(input())
 A = list(map(int, input().split()))
-f = [0] * 100000
-mod = 1000000007
+mod = 10**9 + 7
+f = [0] * N
 
-
-power = [2]
-i = 0
-while 2**i < 1000000007:
-    power.append(power[i] * power[i] % 1000000007)
-    i += 1
-bit_max = i
-
-def pow2(n):
-    a = 1
-    for i in range(bit_max + 1):
-        if n & power[i]:
-            a *= power[i]
-    return a
-
-
-for a in A:
-    f[a] += 1
-
-if A[0] == 0 and f[0] == 1:
-    total = 1
-    if N == 1:
-        print(total)
-        exit()
-else:
+for i in range(N):
+    f[A[i]] += 1
+if A[0] > 0 or f[0] > 1:
     print(0)
     exit()
-
 max_a = max(A)
+total = 1
 for i in range(1, max_a + 1):
     if f[i] == 0:
         print(0)
         exit()
-    else:
-        t = pow2(f[i - 1] - 1)% mod
-        total *= t ** f[i] % mod
-        total *= pow2(f[i] * (f[i] - 1) // 2) % mod
-        # t = (2**f[i - 1] - 1) % mod
-        # total *= t ** f[i] % mod
-        # total *= 2**(f[i] * (f[i] - 1) // 2) % mod
-
-        total %= mod
+    total *= mod_pow(mod_pow(2, f[i - 1], mod) - 1, f[i], mod)
+    total *= mod_pow(2, f[i] * (f[i] - 1) // 2, mod)
+    total %= mod
 print(total)
