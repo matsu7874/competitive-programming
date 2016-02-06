@@ -15,3 +15,10 @@ What is the total of all the name scores in the file?
 """
 
 
+f = open('./resources/names.txt','r')
+names = f.read().replace('"','').split(',')
+names.sort()
+total = 0
+for i,v in enumerate(names, start=1):
+    total += i * sum(list(ord(c)-ord('A')+1 for c in v))
+print(total)
