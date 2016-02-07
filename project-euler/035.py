@@ -21,8 +21,18 @@ def is_prime(n):
     return True
 
 def main():
-    for i in range(1000000):
-        pass
-
+    cnt = 0
+    for i in range(2,1000000):
+        flg = True
+        t = i
+        for j in range(len(str(i))):
+            t = t//(10**(len(str(i))-1)) + t%(10**(len(str(i))-1))*10
+            if not is_prime(t):
+                flg = False
+                break
+        if flg:
+            cnt += 1
+            # print(i)
+    print(cnt)
 if __name__ == '__main__':
     main()

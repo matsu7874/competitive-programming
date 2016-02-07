@@ -27,7 +27,7 @@ def factrial(n):
 
 def main():
     res = 0
-    for i in range(10**6):
+    for i in range(3,10**6):
         if i == sum([factrial(t) for t in each_digits(i)]):
             res += i
     print(res)

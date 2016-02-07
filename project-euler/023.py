@@ -32,33 +32,22 @@ def get_divisors(n):
     return divisors
 
 def main():
-    upper_limit = 28123
+    upper_limit = 28124
     res = 0
     abundants = []
     for i in range(1, upper_limit):
-        if i > sum(get_divisors(i)) - i:
+        if i < sum(get_divisors(i)) - i:
             abundants.append(i)
     num_abundants = len(abundants)
-    for i in range(upper_limit):
-        for j in range(num_abundants-1):
-            l = j+1
-            r = num_abundants
-            found = False
-            while l <= r:
-                m = (l+r)//2
-                if abundants[j] + abundants[m] == i:
-                    found = True
-                    break
-                elif abundants[j] + abundants[m] > i:
-                    r = m-1
-                else:
-                    l = m+1
-            if found:
-                break
-        if not found:
+    writable = set()
+    for i in range(num_abundants-1):
+        writable.add(abundants[i]*2)
+        for j in range(i+1, num_abundants):
+            writable.add(abundants[i] + abundants[j])
+    for i in range(1, upper_limit):
+        if i not in writable:
             res += i
     print(res)
 
-
-
 if __name__ == '__main__':
+    main()

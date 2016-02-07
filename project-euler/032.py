@@ -19,14 +19,19 @@ only include it once in your sum.
 import itertools
 
 def main():
-    res = 0
+    res = set()
     for t in itertools.permutations([1,2,3,4,5,6,7,8,9]):
-        a = t[0]*100 + t[1]*10
+        a = t[0]*10 + t[1]
         b = t[2]*100 + t[3]*10 + t[4]
         c = t[5]*1000 + t[6]*100 + t[7]*10 +t[8]
         if a*b == c:
-            res += c
-    print(res)
+            res.add(c)
+        a = t[0]
+        b =  t[1]*1000 + t[2]*100 + t[3]*10 + t[4]
+        c = t[5]*1000 + t[6]*100 + t[7]*10 +t[8]
+        if a*b == c:
+            res.add(c)
+    print(sum(res))
 
 if __name__ == '__main__':
     main()
