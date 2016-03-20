@@ -6,6 +6,8 @@ py = -1
 px = -1
 for line in f:
     y, x = map(int, line.split())
+    y -= 1
+    x -= 1
     if ((abs(py-y) == 1 and px-x==0) or (abs(px-x) == 1 and py-y==0)) and A[py][px] == A[y][x]:
         pass
     else:
