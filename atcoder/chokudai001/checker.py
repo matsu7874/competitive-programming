@@ -1,5 +1,6 @@
+import sys
 A = [list(map(int, input().split())) for i in range(30)]
-f = open('out.txt', 'r')
+f = open(sys.argv[1], 'r')
 turn = 0
 py = -1
 px = -1
@@ -14,7 +15,9 @@ for line in f:
     px = x
 if all([sum(A[i])==0 for i in range(30)]):
     print('SUCCESS')
-    print(turn)
+    print(100000 - turn)
+    for i in A:
+        print(' '.join([str(j) for j in i]))
 else:
     print('MISS')
     print(turn)
