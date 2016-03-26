@@ -1,22 +1,13 @@
-(n, m) = [int(x) for x in input().split()]
-if n>5001 or m>5001:
-    exit()
-M = [0 for i in range(m)]
-L = []
-R = []
-S = []
-SCORE = 0
+n, m = map(int, input().split())
+a = [0 for i in range(m + 2)]
+total_score = 0
 for i in range(n):
-    (l, r, s) = [int(x) for x in input().split()]
-    for j in range(l,r+1):
-        M[j-1] += 1
-    SCORE += s
-    L.append(l)
-    R.append(r)
-    S.append(s)
-max_score = 0
-for i in range(n):
-    if 0 in M or 1 in M[L[i]-1:R[i]+1]:
-        score = SCORE - S[i]
-        max_score = max(max_score, score)
-print(max_score)
+    l, r, s = map(int, input().split())
+    a[l] += s
+    a[r + 1] -= s
+    total_score += s
+min_score = float('inf')
+for i in range(1, m + 1):
+    a[i] += a[i - 1]
+    min_score = min(min_score, a[i])
+print(total_score - min_score)
