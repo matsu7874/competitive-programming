@@ -7,7 +7,7 @@ def main():
     argc = len(argvs)
 
     if argc < 1:
-        print('Usege\nsetup_python.py contest_name')
+        print('Usege\nsetup_js.py contest_name')
         exit(0)
 
     contest_name = argvs[1]
@@ -21,11 +21,13 @@ def main():
     if argc > 2:
         problem_number = int(argvs[2])
     for i in range(problem_number):
-        path = contest_name + '\\' + chr(ord('a') + i) + '.py'
+        path = contest_name + '\\' + chr(ord('a') + i) + '.js'
         if os.path.isfile(path):
             print(path, 'is exists')
         else:
             f = open(path, 'w')
+            f.write('function main(input) {\n\n}\n')
+            f.write('main(require("fs").readFileSync("/dev/stdin", "utf8"));')
             f.close()
             print(path, 'created')
     for s in ['in.txt', 'out.txt']:
