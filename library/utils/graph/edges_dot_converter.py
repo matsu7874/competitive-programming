@@ -25,10 +25,14 @@ def convert(edges_file, dot_file, costed=True, directed=True):
 
 
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("echo")
+    args = parser.parse_args()
+    print(args.echo)
     args = len(sys.argv)
     edges_file = sys.argv[1]
-    print(sys.argv)
-    print(sys.argv[1].split('.')[-2] +'.dot')
+    # print(sys.argv[1].split('.')[-2] +'.dot')
     if args == 2:
         convert(sys.argv[1], '.'.join(sys.argv[1].split('.')[:-1]) +'.dot')
     else:
