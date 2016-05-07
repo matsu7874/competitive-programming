@@ -4,15 +4,6 @@ NAME_OF_MONTH = ['January', 'February', 'March', 'April', 'May', 'June',
 DAY_OF_WEEK = ['Sunday', 'Monday', 'Tuesday',
                'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-def mod_pow(x, n, mod):
-    # (x**n)%mod を返す
-    res = 1
-    while n > 0:
-        if n & 1:
-            res = res * x % mod
-        x = x * x % mod
-        n //= 2
-    return res
 
 def is_palindrome(s):
     # 回文判定
@@ -68,7 +59,6 @@ def lcm(a, b):
 
 def get_divisors(n):
     # 約数列挙
-    # リストがソートされていないことに注意せよ。
     divisors = set()
     for i in range(1, int(n**0.5) + 1):
         if n % i == 0:
@@ -76,11 +66,6 @@ def get_divisors(n):
             divisors.add(n // i)
     return list(divisors)
 
-
-def Eulers_Phi_Function(n):
-    freq = collections.Counter(prime_decomposition(n))
-    ans = n
-    for k,v in freq.items():
 
 def get_frequency(lst):
     frequency = {}
@@ -213,6 +198,31 @@ def lcs(a, b, dic):
     return ret
 
 
+class UnionFind:
+
+    def __init__(self, size):
+        # 負の値はルート (集合の代表) で集合の個数
+        # 正の値は次の要素を表す
+        self.table = [-1 for _ in range(size)]
+
+    def find(self, x):
+        # 集合の代表を求める
+        while self.table[x] >= 0:
+            x = self.table[x]
+        return x
+
+    def union(self, x, y):
+        # 併合
+        s1 = self.find(x)
+        s2 = self.find(y)
+        if s1 != s2:
+            if self.table[s1] >= self.table[s2]:
+                self.table[s1] += self.table[s2]
+                self.table[s2] = s1
+            else:
+                self.table[s2] += self.table[s1]
+                self.table[s1] = s2
+        return self.table[s1]
 
 
 # 幾何
