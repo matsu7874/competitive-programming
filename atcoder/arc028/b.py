@@ -1,7 +1,13 @@
-N,K=map(int, input().split())
-X=list(map(int, input().split()))
-cur = K-1
-win_value = min(X[:cur])
-if X[0]>X[1]:
-    winner = 1
-print(winner+1)
+import heapq
+n, k = map(int, input().split())
+a = list(map(int, input().split()))
+youngers = [(-a[i], i + 1) for i in range(k)]
+heapq.heapify(youngers)
+for i in range(k, n):
+    old, th = heapq.heappop(youngers)
+    print(th)
+    if -old < a[i]:
+        heapq.heappush(youngers, (old, th))
+    else:
+        heapq.heappush(youngers, (-a[i], i + 1))
+print(heapq.heappop(youngers)[1])
