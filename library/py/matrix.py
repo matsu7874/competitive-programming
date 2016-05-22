@@ -7,6 +7,18 @@ class Matrix():
         for i in range(self.r):
             self.matrix.append(array[i][:])
 
+    def __eq__(self, other):
+        if self.r != other.r or self.c != other.c:
+            return False
+        for i in range(self.r):
+            for j in range(self.c):
+                if self.matrix[i][j] != other.matrix[i][j]:
+                    return False
+        return True
+
+    def __ne__(self, other):
+        return self.name != other
+
     def component(self, i, j):
         return self.matrix[i][j]
 
@@ -57,12 +69,45 @@ class Matrix():
                 b[i].append(t)
         return Matrix(b)
 
-    def rank(self, a):
-        # O(n m^2)
-        n = len(a)
-        m = len(a[0])
+    def rank(self):
+        zero = []
+        a = self.copy()
+        pivot = 0
+        L = min(self.r, self.c)
+        while pivot < L:
+            pivot_v = a.matrix[pivot][pivot]
+            pivot_row = pivot
+            for i in range(pivot + 1, L):
+                v = max(a.matrix[i][pivot], -a.matrix[i][pivot])
+                if pivot_v < v:
+                    pivot_row = i
+                    pivot_v = v
+            if pivot_row > pivot:
+                for i in range(self.c):
+                    a.matrix[pivot][i] = a.matrix[pivot_row][i]
+                    a.matrix[pivot_row][i] = a.matrix[pivot][i]
 
-        return 0
+            if pivot_v == 0:
+                zero.append(pivot)
+                pivot += 1
+                continue
+            inv_pivot = 1 / a.matrix[pivot][pivot]
+            a.matrix[pivot][pivot] = 1
+            for i in range(pivot + 1, self.c):
+                a.matrix[pivot][i] *= inv_pivot
+            for i in range(self.r):
+                if i == pivot:
+                    continue
+                t = -1 * a.matrix[i][pivot]
+                a.matrix[i][pivot] = 0
+                for j in range(pivot + 1, self.c):
+                    a.matrix[i][j] += t * a.matrix[pivot][j]
+            pivot += 1
+        cnt = 0
+        for i in zero:
+            if all(a.matrix[i][j] == 0 for j in range(a.c)):
+                cnt += 1
+        return a.r - cnt
 
     def determinant_naive(self):
         # require regular matrix
@@ -92,14 +137,13 @@ class Matrix():
             L.matrix[i][i] = 1
         for k in range(n):
             U.matrix[k][k] = self.matrix[k][k]
-            for i in range(k+1, n):
+            for i in range(k + 1, n):
                 L.matrix[i][k] = self.matrix[i][k] / U.matrix[k][k]
                 U.matrix[k][i] = self.matrix[k][i]
-            for i in range(k+1, n):
-                for j in range(k+1,n):
+            for i in range(k + 1, n):
+                for j in range(k + 1, n):
                     self.matrix[i][j] -= L.matrix[i][k] * U.matrix[k][j]
-        return L,U
-
+        return L, U
 
     def gauss_jordan_elimination(self):
         a = self.copy()
@@ -115,24 +159,25 @@ class Matrix():
                     pivot_v = v
             if pivot_row > pivot:
                 for i in range(self.c):
-                    a.matrix[pivot][i], a.matrix[pivot_row][i] = a.matrix[pivot_row][i], a.matrix[pivot][i]
+                    a.matrix[pivot][i] = a.matrix[pivot_row][i]
+                    a.matrix[pivot_row][i] = a.matrix[pivot][i]
+
             if pivot_v == 0:
                 pivot += 1
                 continue
             inv_pivot = 1 / a.matrix[pivot][pivot]
             a.matrix[pivot][pivot] = 1
-            for i in range(pivot+1, self.c):
+            for i in range(pivot + 1, self.c):
                 a.matrix[pivot][i] *= inv_pivot
             for i in range(self.r):
                 if i == pivot:
                     continue
                 t = -1 * a.matrix[i][pivot]
                 a.matrix[i][pivot] = 0
-                for j in range(pivot+1,self.c):
+                for j in range(pivot + 1, self.c):
                     a.matrix[i][j] += t * a.matrix[pivot][j]
             pivot += 1
-
-        return (a)
+        return a
 
 
 def matrix2_product(a, b):
@@ -168,9 +213,9 @@ def matrix2_power(mtr, p):
 if __name__ == '__main__':
     n = 3
     A = [[i * 100 + j for j in range(n)] for i in range(n)]
-    B = [[i * 100  for j in range(n)] for i in range(n)]
+    B = [[i * 100 for j in range(n)] for i in range(n)]
     I = [[2 if i == j else 0 for j in range(n)] for i in range(n)]
-    A = [[2,3,1,5],[6,13,5,19],[2,19,10,23],[4,10,11,31]]
+    A = [[2, 3, 1, 5], [6, 13, 5, 19], [2, 19, 10, 23], [4, 10, 11, 31]]
     a = Matrix(A)
     b = Matrix(B)
     a.display()
@@ -184,8 +229,19 @@ if __name__ == '__main__':
     # at = a.transpose()
     # ELAPSED_TIME = time.time() - START_TIME
     # print('elapsed time is:', ELAPSED_TIME, '[s]')
-    l,u = a.LU_decomposition()
+    l, u = a.LU_decomposition()
     l.display()
     u.display()
     a.gauss_jordan_elimination().display()
+    print(a.rank())
     b.gauss_jordan_elimination().display()
+    print(b.rank())
+
+    print('C')
+    C = [[1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 36, 7], [1, 5, 62, 1]]
+    c = Matrix(C)
+    c.display()
+    print(c.rank())
+    c_g = c.gauss_jordan_elimination()
+    c_g.display()
+    print(c_g.rank())
