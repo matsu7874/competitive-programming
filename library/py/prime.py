@@ -51,19 +51,29 @@ def prime_sieve(n):
 
 def prime_decomposition(n):
     # 素因数分解
-    prime_factors = []
     if n < 2:
-        return prime_factors
-    while n >= 2 and n % 2 == 0:
+        return []
+    prime_factors = []
+    while n % 2 == 0:
         prime_factors.append(2)
-        n //= 2
-    i = 3
-    while i * i <= n:
-        if n % i == 0:
-            prime_factors.append(i)
-            n //= i
+        n >>= 1
+
+    while n % 3 == 0:
+        prime_factors.append(3)
+        n //= 3
+
+    a = 5
+    b = 7
+    while a ** 2 <= n:
+        if n % a == 0:
+            prime_factors.append(a)
+            n //= a
+        elif n % b == 0:
+            prime_factors.append(b)
+            n //= b
         else:
-            i += 2
+            a += 6
+            b += 6
     if n > 1:
         prime_factors.append(n)
     return prime_factors
