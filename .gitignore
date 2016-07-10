@@ -6,3 +6,7 @@ kaggle
 rosalind
 googlecodejam
 hackerrank
+*.in
+*.out
+*.ans
+.vscode
