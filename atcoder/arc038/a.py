@@ -1,5 +1,0 @@
-N = int(input())
-A = list(map(int, input().split()))
-A.sort()
-A.reverse()
-print(sum(A[i] for i in range(N) if i % 2 == 0))
